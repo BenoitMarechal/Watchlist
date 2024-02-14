@@ -1,8 +1,10 @@
-﻿namespace Watchlist.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Watchlist.Models
 {
     public class ModeleVueFilm
     {
-        public int IdFilm { get; set; }
+        [Key] public int IdFilm { get; set; }
         public string Titre { get; set; }
         public int Annee { get; set; }
         public bool PresentDansListe { get; set; }
