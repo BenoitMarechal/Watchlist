@@ -41,6 +41,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PresentDansListe)
+                    <button id="@item.IdFilm" data-val="@item.PresentDansListe" class="btn">
+                        @(item.PresentDansListe ? " - " : " + ")
+                    </button>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Vu)
@@ -57,3 +60,29 @@
 }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+           jQuery(document).ready(function () {
+              $('.btn').click(function (e) {
+         var btn = $(this);
+         var idFilm = btn.attr('id');
+         var valFilm = btn.attr('presentDansListe-val') == "False" ? 0 : 1;
+           $.get('/Films/AjouterSupprimer?id=' + idFilm + '&val=' + valFilm,
+        function (data) {
+           if (data == 0) {
+        btn.attr('presentDansListe-val', 'False');
+        btn.html(' + ');
+           }
+           else if (data == 1) {
+        btn.attr('presentDansListe-val', 'True');
+        btn.html(' - ');
+           }
+           });
+        });
+
+           });
+
+    </script>
+
+}

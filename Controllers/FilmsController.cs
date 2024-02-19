@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Watchlist.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Watchlist.Controllers
 {
+    [Authorize]
     public class FilmsController : Controller
     {
         private readonly ApplicationDbContext _context;
