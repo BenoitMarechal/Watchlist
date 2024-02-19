@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Watchlist.Data.Film>
+﻿   @model IEnumerable<Watchlist.Models.ModeleVueFilm>
 
 @{
     ViewData["Title"] = "Index";
@@ -18,7 +18,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Annee)
             </th>
-            <th></th>
+            <th>
+                Présent dans la liste
+            </th>
+            <th>
+                Actions CRUD
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -31,11 +36,42 @@
                 @Html.DisplayFor(modelItem => item.Annee)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <button id="@item.IdFilm" data-val="@item.PresentDansListe" class="btn">
+                        @(item.PresentDansListe ? " - " : " + ")
+                    </button>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdFilm">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdFilm">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdFilm">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        jQuery(document).ready(function () {
+            $('.btn').click(function (e) {
+                var btn = $(this);
+                var idFilm = btn.attr('id');
+                var valFilm = btn.attr('presentDansListe-val') == "False" ? 0 : 1;
+                $.get('/Films/AjouterSupprimer?id=' + idFilm + '&val=' + valFilm,
+                    function (data) {
+                        if (data == 0) {
+                            btn.attr('presentDansListe-val', 'False');
+                            btn.html(' + ');
+                        }
+                        else if (data == 1) {
+                            btn.attr('presentDansListe-val', 'True');
+                            btn.html(' - ');
+                        }
+                    });
+            });
+
+        });
+
+    </script>
+
+}
