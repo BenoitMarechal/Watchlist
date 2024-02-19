@@ -56,15 +56,16 @@
             $('.btn').click(function (e) {
                 var btn = $(this);
                 var idFilm = btn.attr('id');
-                var valFilm = btn.attr('presentDansListe-val') == "False" ? 0 : 1;
-                $.get('/Films/AjouterSupprimer?id=' + idFilm + '&val=' + valFilm,
+                var valFilm = btn.attr('data-val') == "False" ? 0 : 1;
+               // $.get('/Films/AjouterSupprimer?id=' + idFilm + '&val=' + valFilm,
+                    $.get('/Films/AjouterSupprimer?id=' + idFilm ,
                     function (data) {
                         if (data == 0) {
-                            btn.attr('presentDansListe-val', 'False');
+                            btn.attr('data-val', 'False');
                             btn.html(' + ');
                         }
                         else if (data == 1) {
-                            btn.attr('presentDansListe-val', 'True');
+                            btn.attr('data-val', 'True');
                             btn.html(' - ');
                         }
                     });

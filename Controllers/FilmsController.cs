@@ -72,7 +72,7 @@ namespace Watchlist.Controllers
         [HttpGet]
         public async Task<JsonResult> AjouterSupprimer(int id)
         {
-            int valret = -1;
+            var valret = -1;
             var idUtilisateur = await RecupererIdUtilisateurCourant();
             if (valret == 1)
             {
