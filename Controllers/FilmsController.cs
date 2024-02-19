@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Watchlist.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Watchlist.Controllers
 {
@@ -14,10 +15,12 @@ namespace Watchlist.Controllers
     public class FilmsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Utilisateur> _gestionnaire;
 
-        public FilmsController(ApplicationDbContext context)
+        public FilmsController(ApplicationDbContext context, UserManager<Utilisateur> gestionnaire)
         {
             _context = context;
+            _gestionnaire = gestionnaire;
         }
 
         // GET: Films
